@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { API } from '../../services/API';
 
+//interface to do
+
+
+
 
 
 @Component({
@@ -9,7 +13,7 @@ import { API } from '../../services/API';
   styleUrl: './order-page.component.css'
 })
 export class OrderPageComponent {
-  recipes: any[] = [];
+  recipes: any[] = []; //interface to do
   restaurant: any = {};
 
 
