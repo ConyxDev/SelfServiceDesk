@@ -1,0 +1,24 @@
+<div class="order-page">
+    <div class="order-page-header">
+        <h1>Order Page</h1>
+        <div class="order-page-header-recipes">
+                <div class="order-page-header-recipe">
+                    <img [src]="restaurant.photo" alt="Restaurant Photo">
+                    <h2>{{ restaurant.title }}</h2>
+                    <p>{{ restaurant.location }}</p>
+                    <p>{{ restaurant.etaRange }}</p>
+                </div>
+                <div class="order-page-header-recipe">
+                    <div class="order-page-header-recipe-list">
+                        <h2>Catégories</h2>
+                        <p>{{ recipes[0].title }}</p>
+                        <p>{{ recipes[0].recipes[0].description }}</p>
+                        <p>{{ recipes[0].recipes[0].imageUrl }}</p>
+                        <p>{{ recipes[0].recipes[0].price }}</p>
+                        <p>{{ recipes[0].recipes[0].title }}</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
