@@ -1,24 +1,47 @@
-<div class="order-page">
+<div class="order-page flex">
     <div class="order-page-header">
-        <h1>Order Page</h1>
         <div class="order-page-header-recipes">
-                <div class="order-page-header-recipe">
-                    <img [src]="restaurant.photo" alt="Restaurant Photo">
-                    <h2>{{ restaurant.title }}</h2>
-                    <p>{{ restaurant.location }}</p>
-                    <p>{{ restaurant.etaRange }}</p>
-                </div>
-                <div class="order-page-header-recipe">
-                    <div class="order-page-header-recipe-list">
-                        <h2>Catégories</h2>
-                        <p>{{ recipes[0].title }}</p>
-                        <p>{{ recipes[0].recipes[0].description }}</p>
-                        <p>{{ recipes[0].recipes[0].imageUrl }}</p>
-                        <p>{{ recipes[0].recipes[0].price }}</p>
-                        <p>{{ recipes[0].recipes[0].title }}</p>
+                <div class="order-page-header-recipe flex gap-4">
+                    <img [src]="restaurant.photo" alt="Restaurant Photo" style="width: 100px; height: 100px; border-radius: 50%;" class="rounded-full">
+                    <div class="order-page-header-recipe-info bg-white">
+                        <h2 class = "text-2xl font-bold text-red">{{ restaurant.title }}</h2>
+                        <p>{{ restaurant.description }}</p>
+                        <p>{{ restaurant.location }}<p>
+                        <p>{{ restaurant.etaRange }}</p>
                     </div>
                 </div>
+                <div class="order-page-header-recipe-list w-1/2 flex gap-4">
+                        <h2>Catégories</h2>
+                        <ul>
+                            <li *ngFor="
+                            let category of categories;">
+                                <p>{{ category.title }}</p>
+                        
+                        <ul>
+                            <li *ngFor="let recipe of category.recipes">
+
+                                <img [src]="recipe.imageUrl" alt="Product Image" style="width: 100px; height: 100px; border-radius: 50%;">
+                                <p>{{ recipe.title }}</p>
+                                <p>{{ recipe.description }}</p>
+                                <p>{{ recipe.price }}</p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                </div>
+                    <div class="order-page-header-recipe-list w-1/2 flex gap-4">
+                        <ul>
+                            <li *ngFor="
+                            let product of products;
+                            let i = index;
+                            ">
+                                <img [src]="product.imageUrl" alt="Product Image" style="width: 100px; height: 100px; border-radius: 50%;">
+                                <p>{{ product.title }}</p>
+                                <p>{{ product.description }}</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
