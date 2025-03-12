@@ -1,47 +1,40 @@
-<div class="order-page flex">
-    <div class="order-page-header">
-        <div class="order-page-header-recipes">
-                <div class="order-page-header-recipe flex gap-4">
-                    <img [src]="restaurant.photo" alt="Restaurant Photo" style="width: 100px; height: 100px; border-radius: 50%;" class="rounded-full">
-                    <div class="order-page-header-recipe-info bg-white">
-                        <h2 class = "text-2xl font-bold text-red">{{ restaurant.title }}</h2>
-                        <p>{{ restaurant.description }}</p>
-                        <p>{{ restaurant.location }}<p>
-                        <p>{{ restaurant.etaRange }}</p>
-                    </div>
-                </div>
-                <div class="order-page-header-recipe-list w-1/2 flex gap-4">
-                        <h2>Catégories</h2>
-                        <ul>
-                            <li *ngFor="
-                            let category of categories;">
-                                <p>{{ category.title }}</p>
-                        
-                        <ul>
-                            <li *ngFor="let recipe of category.recipes">
+<div class="order-page mx-12">
+  <div class="main-content flex mt-12">
+    <div class="categories-column w-1/4 pr-4">
+      <h2 class="text-xl font-semibold mb-4">Catégories</h2>
+      <ul class="categories-list">
+        <li
+          *ngFor="let category of categories"
+          class="py-2 px-3 hover:bg-gray-100 cursor-pointer rounded"
+        >
+          <p>{{ category.title }}</p>
+        </li>
+      </ul>
+    </div>
 
-                                <img [src]="recipe.imageUrl" alt="Product Image" style="width: 100px; height: 100px; border-radius: 50%;">
-                                <p>{{ recipe.title }}</p>
-                                <p>{{ recipe.description }}</p>
-                                <p>{{ recipe.price }}</p>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                </div>
-                    <div class="order-page-header-recipe-list w-1/2 flex gap-4">
-                        <ul>
-                            <li *ngFor="
-                            let product of products;
-                            let i = index;
-                            ">
-                                <img [src]="product.imageUrl" alt="Product Image" style="width: 100px; height: 100px; border-radius: 50%;">
-                                <p>{{ product.title }}</p>
-                                <p>{{ product.description }}</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    <div class="products-column w-3/4">
+      <h2 class="text-xl font-semibold mb-4">Tous les produits</h2>
+      <div class="products-grid grid grid-cols-4 gap-4">
+        <div
+          *ngFor="let product of recipes"
+          class="product-card p-4 border rounded-lg flex flex-col items-center justify-between h-90"
+        >
+          <img
+            *ngIf="product.imageUrl"
+            [src]="product.imageUrl"
+            alt="Product Image"
+            class="w-full h-45 object-cover rounded-45 mb-2"
+          />
+          <h3 class="font-medium text-lg">{{ product.title }}</h3>
+          <p class="text-sm text-gray-600">{{ product.description }}</p>
+          <p class="font-bold mt-2">{{ product.price / 100 }}CHF</p>
         </div>
-
+      </div>
+    </div>
+  </div>
+  <div class="order-summary">
+    <button class="text-xl font-semibold mb-4 bg-blue-500 text-white px-4 py-2 rounded-md">
+      Commander
+    </button>
+  </div>
+</div>

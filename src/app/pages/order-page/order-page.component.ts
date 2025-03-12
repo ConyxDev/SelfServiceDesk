@@ -19,6 +19,13 @@ interface Restaurant {
   location: string;
 }
 
+interface Product {
+  title: string;
+  description: string;
+  imageUrl: string;
+  price: number;
+}
+
 @Component({
   selector: 'app-order-page',
   templateUrl: './order-page.component.html',
@@ -26,10 +33,10 @@ interface Restaurant {
   imports: [NgFor, CommonModule]
 })
 export class OrderPageComponent {
-  categories: Category[] = []; //interface to do
+  categories: Category[] = []
   restaurant: Restaurant = {} as Restaurant ;
-  products: any[] = [];
-  recipes: any[] = [];
+  products: Product[] = [];
+  recipes: Product[] = [];
 
   constructor() {
     this.getRecipes();
@@ -39,10 +46,10 @@ export class OrderPageComponent {
       new API().getRecipes().then((data) => {
       this.categories = data.data;
       this.restaurant = data;
-      this.products = data.data.recipes;
+      this.recipes = data.data.flatMap((category: any) => category.recipes);
       console.log('categories', this.categories);
       console.log('restaurant', this.restaurant);
-      console.log('products', this.products);
+      console.log('recipes', this.recipes);
     });
   }
 
