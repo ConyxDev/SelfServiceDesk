@@ -10,3 +10,19 @@ export class API {
     }
 
 }
+
+
+/* export class APIService {
+async getRecipes(): Promise<Restaurant> {
+    const url = './resto-data.json';
+    const request = await fetch(url);
+    const response: Restaurant = await request.json();
+    console.log(response);
+    return response;
+}
+    async sendOrder() {}
+
+
+}
+
+*/

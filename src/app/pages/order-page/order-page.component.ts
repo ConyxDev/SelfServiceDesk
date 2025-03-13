@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { API } from '../../services/API';
 import { NgFor, CommonModule } from '@angular/common';
+import { HeaderComponent } from '../../components/header/header.component';
 
-//interface to do
 interface Category {
   title: string;
   description: string;
   imageUrl: string;
   price: number;
-  recipes: any[];
+  recipes: Product[];
 }
 
 interface Restaurant {
@@ -30,22 +30,24 @@ interface Product {
   selector: 'app-order-page',
   templateUrl: './order-page.component.html',
   styleUrl: './order-page.component.css',
-  imports: [NgFor, CommonModule]
+  imports: [CommonModule, HeaderComponent]
 })
-export class OrderPageComponent {
+export class OrderPageComponent implements OnInit {
   categories: Category[] = []
   restaurant: Restaurant = {} as Restaurant ;
   products: Product[] = [];
   recipes: Product[] = [];
+/*   categories: Category[]; */
+  title?: string;
+  logo?: string;
+  
 
-  constructor() {
-    this.getRecipes();
-  }
-
-  getRecipes() {
+ngOnInit(): void {
       new API().getRecipes().then((data) => {
       this.categories = data.data;
       this.restaurant = data;
+      this.title = this.restaurant.title;
+      this.logo = this.restaurant.photo;
       this.recipes = data.data.flatMap((category: any) => category.recipes);
       console.log('categories', this.categories);
       console.log('restaurant', this.restaurant);
@@ -54,5 +56,5 @@ export class OrderPageComponent {
   }
 
 
-
 }
+

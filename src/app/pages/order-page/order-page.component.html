@@ -1,5 +1,8 @@
 <div class="order-page mx-12">
   <div class="main-content flex mt-12">
+    <div class="header-column w-1/4 pr-4">
+      <app-header [title]="title" [logo]="logo"></app-header>
+    </div>
     <div class="categories-column w-1/4 pr-4">
       <h2 class="text-xl font-semibold mb-4">Catégories</h2>
       <ul class="categories-list">
@@ -25,6 +28,7 @@
             alt="Product Image"
             class="w-full h-45 object-cover rounded-45 mb-2"
           />
+          
           <h3 class="font-medium text-lg">{{ product.title }}</h3>
           <p class="text-sm text-gray-600">{{ product.description }}</p>
           <p class="font-bold mt-2">{{ product.price / 100 }}CHF</p>
