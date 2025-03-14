@@ -4,36 +4,64 @@
       <app-header [title]="title" [logo]="logo"></app-header>
     </div>
     <div class="categories-column w-1/4 pr-4">
-      <h2 class="text-xl font-semibold mb-4">Catégories</h2>
+      <h2
+      class="text-xl font-semibold mb-4  hover:bg-gray-100 cursor-pointer rounded hover:text-blue-500">Catégories</h2>
+      @if (categories) {
       <ul class="categories-list">
+        @for (category of categories;track category.uuid) {
         <li
-          *ngFor="let category of categories"
-          class="py-2 px-3 hover:bg-gray-100 cursor-pointer rounded"
+          class="py-2 px-3 hover:bg-gray-100 cursor-pointer rounded-lg hover:text-blue-500"
+          (click)="selectedCategory = category"
         >
           <p>{{ category.title }}</p>
         </li>
+        }
       </ul>
+    }
     </div>
-
     <div class="products-column w-3/4">
-      <h2 class="text-xl font-semibold mb-4">Tous les produits</h2>
+      <h2 class="text-xl font-semibold mb-4">
+      {{ selectedCategory?.title }}
+      </h2>
+      @if (categories) {
       <div class="products-grid grid grid-cols-4 gap-4">
+        @if (selectedCategory) {
+        @for (product of (categories | filterByCategory: selectedCategory).recipes; track product.uuid) {
         <div
-          *ngFor="let product of recipes"
-          class="product-card p-4 border rounded-lg flex flex-col items-center justify-between h-90"
+          class="product-card p-4 border rounded-lg flex flex-col items-center justify-between h-120"
         >
+          @if (product.imageUrl) {
           <img
-            *ngIf="product.imageUrl"
             [src]="product.imageUrl"
             alt="Product Image"
             class="w-full h-45 object-cover rounded-45 mb-2"
           />
-          
+          }
           <h3 class="font-medium text-lg">{{ product.title }}</h3>
           <p class="text-sm text-gray-600">{{ product.description }}</p>
-          <p class="font-bold mt-2">{{ product.price / 100 }}CHF</p>
+          <p class="font-bold mt-2">{{ product.price | currency:'CHF': 'symbol': '1.2-2' }}</p>
         </div>
+        }
+        } @else {
+          @for (category of categories; track category.uuid) {
+          @for (product of category.recipes; track product.uuid) {
+          <div class="product-card p-4 border rounded-lg flex flex-col items-center justify-between h-90">
+            @if (product.imageUrl) {
+            <img
+              [src]="product.imageUrl"
+              alt="Product Image"
+              class="w-full h-45 object-cover rounded-45 mb-2"
+            />
+            }
+            <p>{{ product.title }}</p>
+            <p>{{ product.description }}</p>
+            <p>{{ product.price | currency:'CHF': 'symbol': '1.2-2' }}</p>
+          </div>
+          }
+        }
+      }
       </div>
+      }
     </div>
   </div>
   <div class="order-summary">
