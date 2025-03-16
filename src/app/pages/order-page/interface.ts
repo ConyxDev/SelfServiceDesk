@@ -61,3 +61,9 @@ export interface BottomSheet {
 export interface Body {
     text: string;
 }
+
+export interface CartItems {
+    productTitle: string;
+    productPrice: number;
+    productQuantity: number;
+}
