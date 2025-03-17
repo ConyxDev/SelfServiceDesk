@@ -28,7 +28,7 @@
         @if (selectedCategory) {
         @for (product of (categories | filterByCategory: selectedCategory).recipes; track product.uuid) {
         <div
-          (click)="cartService.addToCart(product)"
+          (click)="addToOrder(product)"
           class="cursor-pointer product-card p-4 border rounded-lg flex flex-col items-center justify-between h-120"
         >
           @if (product.imageUrl) {
@@ -47,7 +47,7 @@
           @for (category of categories; track category.uuid) {
           @for (product of category.recipes; track product.uuid) {
           <div 
-          (click)="cartService.addToCart(product)"
+          (click)="addToOrder(product)"
           class="cursor-pointer product-card p-4 border rounded-lg flex flex-col items-center justify-between h-90">
             @if (product.imageUrl) {
             <img
@@ -68,18 +68,21 @@
     </div>
   </div>
   <div class="order-summary">
-    <button class="text-xl font-semibold mb-4 bg-blue-500 text-white px-4 py-2 rounded-md">
-      Commander
+    <button [disabled]="order.hasError('minOrder')"
+    class="text-xl font-semibold mb-4 bg-blue-500 text-white px-4 py-2 rounded-md"
+    [class.bg-gray-400]="order.hasError('minOrder')"
+    [class.bg-blue-500]="!order.hasError('minOrder')">
+    Commander (minimum 10 CHF)
     </button>
   </div>
   <div class="add-cart">
-    <p>Items in cart: {{ cartService.quantity }}</p>
-    <p>Total: {{ cartService.totalPrice / 100 | currency:'CHF': 'symbol': '1.2-2' }}</p>
+    <p>Items in cart: {{ totalQuantity }}</p>
+    <p>Total: {{ totalPrice / 100 | currency:'CHF': 'symbol': '1.2-2' }}</p>
     <ul>
-      @for (item of cartService.cartItems; track item.product.uuid) {
-      <li>{{ item.product.title }} (x{{ item.quantity }})</li>
-      <li>{{ item.product.price / 100 | currency:'CHF': 'symbol': '1.2-2' }}</li>
-      <li><button (click)="removeFromCart(item.product)">X</button></li>
+      @for (item of order.value; track item.uuid) {
+      <li>{{ item.title }} (x{{ item.quantity }})</li>
+      <li>{{ item.price / 100 | currency:'CHF': 'symbol': '1.2-2' }}</li>
+      <li><button>X</button></li>
       }
     </ul>
   </div>

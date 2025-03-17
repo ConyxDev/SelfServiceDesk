@@ -67,3 +67,10 @@ export interface CartItems {
     productPrice: number;
     productQuantity: number;
 }
+
+
+export interface OrderProduct {
+    title: string;
+    uuid: string;
+    quantity: number;
+}
