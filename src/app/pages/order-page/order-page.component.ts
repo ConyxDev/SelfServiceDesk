@@ -5,11 +5,15 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { Restaurant, Category, Recipe, OrderProduct } from './interface';
 import { FilterByCategoryPipe } from '../../pipes/filterByCategory/filter-by-category.pipe';
 import { ReactiveFormsModule, FormArray, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { WelcomeComponent } from '../../components/welcome/welcome-component.component';
+
+
 @Component({
   selector: 'app-order-page',
   templateUrl: './order-page.component.html',
   styleUrl: './order-page.component.css',
-  imports: [CommonModule, HeaderComponent, FilterByCategoryPipe, ReactiveFormsModule],
+  imports: [CommonModule,WelcomeComponent, HeaderComponent, FilterByCategoryPipe, ReactiveFormsModule, FormsModule],
 })
 export class OrderPageComponent implements OnInit {
   public categories: Category[] = [];
@@ -24,11 +28,18 @@ export class OrderPageComponent implements OnInit {
   public totalQuantity: number = 0;
   public productPrice: number = 0;
   public minOrder: boolean = false;
+  public welcomeTitle?: string = 'hello';
+
+
+constructor (
+  private readonly _APIservice: API,
+) { }
+
 
 ngOnInit(): void {
-      new API().getRecipes().then((data) => {
+      this._APIservice.getHttpClient().then((data) => {
       this.categories = data.data;
-      this.product = data.data.recipes;
+      this.product = data.data[0].recipes[0];
       this.restaurant = data;
       this.title = this.restaurant?.title;
       this.logo = this.restaurant?.photo;
@@ -48,7 +59,6 @@ public minOrderValidator = (control: AbstractControl) => {
   const minOrder = this.totalPrice >= 10;
   return minOrder ? null : { minOrder: true };
 }
-
 
 
 

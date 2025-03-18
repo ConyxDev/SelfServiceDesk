@@ -1,28 +1,53 @@
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Restaurant } from "../pages/order-page/interface";
+import { firstValueFrom } from "rxjs";
+
+
+@Injectable ({
+    providedIn: 'root'
+})
+
 export class API {
 
+    constructor(
+        private readonly _http: HttpClient
+    ) {
+        console.log('Hi from the constructor');
+    }
 
-    getRecipes = async (): Promise<any> => {
+
+    async getHttpClient () {
+        const url = `./resto-data.json`;
+        const request = this._http.get<Restaurant>(url);
+        const response = await firstValueFrom(request)
+        return response;
+
+    }
+
+
+/*     getRecipes = async (): Promise<any> => {
         const response = await fetch('/resto-data.json');
         const database: any = await response.json();
         console.log(database);
         return database;
 
-    }
+    } */
 
 }
+/********BONNE METHODE **********
 
-
-/* export class APIService {
-async getRecipes(): Promise<Restaurant> {
+async getHttpClient () {
     const url = './resto-data.json';
-    const request = await fetch(url);
-    const response: Restaurant = await request.json();
-    console.log(response);
+    const ops = {
+        headers: new HttpHeaders({
+            'authorization': 'xxx'
+        })
+    };
+
+
+    const request = this._http.get<Resto>(url, ops);
+    const response = await firstValueFrom(request);
     return response;
 }
-    async sendOrder() {}
-
-
-}
-
-*/
+/**********************************/

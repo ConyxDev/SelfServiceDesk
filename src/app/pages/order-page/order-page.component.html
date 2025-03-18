@@ -1,5 +1,18 @@
 <div class="order-page mx-12">
+<app-welcome-component [welcomeTitle]="welcomeTitle"></app-welcome-component>
   <div class="main-content flex mt-12">
+    <form class="mb-4 p-4 bg-red rounded shadow">
+      <div class="form-group">
+        <label for="welcomeTitle">Modifier le titre:</label>
+        <input 
+          id="welcomeTitle"
+          name="welcomeTitle"
+          type="text"
+          [(ngModel)]='welcomeTitle'
+          class="ml-2 p-2 border rounded text-red"
+        >
+      </div>
+    </form>
     <div class="header-column w-1/4 pr-4">
       <app-header [title]="title" [logo]="logo"></app-header>
     </div>
@@ -19,6 +32,7 @@
       </ul>
     }
     </div>
+
     <div class="products-column w-3/4">
       <h2 class="text-xl font-semibold mb-4">
       {{ selectedCategory?.title }}
@@ -72,8 +86,11 @@
     class="text-xl font-semibold mb-4 bg-blue-500 text-white px-4 py-2 rounded-md"
     [class.bg-gray-400]="order.hasError('minOrder')"
     [class.bg-blue-500]="!order.hasError('minOrder')">
-    Commander (minimum 10 CHF)
+    Commander
     </button>
+    <p [hidden]="!order.hasError('minOrder')">
+      Commander un minimum de 10CHF pour valider votre commande
+    </p>
   </div>
   <div class="add-cart">
     <p>Items in cart: {{ totalQuantity }}</p>

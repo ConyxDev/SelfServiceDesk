@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input, NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-welcome-component',
@@ -8,6 +8,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class WelcomeComponent {
 
+  @Input() public welcomeTitle: string = 'Welcome';
   @Output() public welcomeClick: EventEmitter<string> = new EventEmitter();
 
   emitEvent() {
