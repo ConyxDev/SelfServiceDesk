@@ -1,6 +1,6 @@
 import { HttpClient, HttpHandler, HttpInterceptorFn, HttpHeaders } from '@angular/common/http';
 
-export const apiKeyInterceptor: HttpInterceptorFn = (req, next) => {
+/* export const apiKeyInterceptor: HttpInterceptorFn = (req, next) => {
   
     const url = req.url;
     const apiToken = 'xxx';
@@ -10,4 +10,4 @@ export const apiKeyInterceptor: HttpInterceptorFn = (req, next) => {
       })
     });
   return next(authReq);
-};
+}; */

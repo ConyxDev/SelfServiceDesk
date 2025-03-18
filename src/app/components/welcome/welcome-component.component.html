@@ -1,2 +1,26 @@
 <button class="bg-blue-500 text-white px-4 py-2 rounded-md" (click)="emitEvent()">Welcome</button>
 <h1>{{ welcomeTitle }}</h1>
+<form class="mb-4 p-4 bg-red rounded shadow">
+    <div class="form-group">
+      <label for="welcomeTitle">Modifier le titre:</label>
+      <input 
+        id="welcomeTitle"
+        name="welcomeTitle"
+        type="text" required
+        [(ngModel)]='welcomeTitle'
+        class="ml-2 p-2 border rounded text-red"
+      >
+    </div>
+  </form>
+  <form [formGroup]="welcomeForm">
+    <label for="titleWelcome">Modifier le titre:</label>
+    <input
+        type="text"
+        id="titleWelcome"
+        formControlName="titleWelcome">
+    <div [hidden]="welcomeForm.controls['titleWelcome'].valid || welcomeForm.controls['titleWelcome'].pristine">
+        <div>le titre doit contenir entre 3 et 10 caractères</div>
+        <div [hidden]="!welcomeForm.get('titleWelcome')?.hasError('minlength')">le titre doit contenir au moins 3 caractères</div>
+        <div [hidden]="!welcomeForm.get('titleWelcome')?.hasError('maxlength')">le titre doit contenir au plus 10 caractères</div>
+    </div>
+</form>

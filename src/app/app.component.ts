@@ -1,11 +1,9 @@
 import { Component, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { WelcomeComponent } from './components/welcome/welcome-component.component';
-import { HeaderComponent } from "./components/header/header.component";
-
+import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, WelcomeComponent, HeaderComponent],
+  imports: [RouterOutlet,ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

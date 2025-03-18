@@ -7,6 +7,7 @@ import { FilterByCategoryPipe } from '../../pipes/filterByCategory/filter-by-cat
 import { ReactiveFormsModule, FormArray, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { WelcomeComponent } from '../../components/welcome/welcome-component.component';
+import { BitCoinHttp } from '../../services/BitCoinApi';
 
 
 @Component({
@@ -28,11 +29,12 @@ export class OrderPageComponent implements OnInit {
   public totalQuantity: number = 0;
   public productPrice: number = 0;
   public minOrder: boolean = false;
-  public welcomeTitle?: string = 'hello';
+  public bitCoinPrice?: number;
 
 
 constructor (
   private readonly _APIservice: API,
+  private readonly _Bitcoinservice: BitCoinHttp
 ) { }
 
 
@@ -47,7 +49,15 @@ ngOnInit(): void {
       console.log(this.product);
       
     });
+      this._Bitcoinservice.getBitCoin().then((market_data) => {
+        console.log(market_data);
+        const bitCoinPrice = market_data.market_data.current_price.chf;
+        console.log(bitCoinPrice);
+        this.bitCoinPrice = bitCoinPrice;
+      })
   }
+
+
 
   selectCategory(category: Category) {
     this.selectedCategory = category;
