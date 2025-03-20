@@ -12,16 +12,19 @@ export class WelcomeComponent {
 
   @Input() public welcomeTitle: string = 'Welcome';
   @Output() public welcomeClick: EventEmitter<string> = new EventEmitter();
+
   public welcomeForm: FormGroup;
 
   constructor() {
     this.welcomeForm = new FormGroup({
-      titleWelcome: new FormControl('',[
+      titleWelcome: new FormControl('Welcome',[
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(10)
       ])
     });
+
+    console.log(this.welcomeForm.get('titleWelcome')?.valid);
   }
 
   emitEvent() {

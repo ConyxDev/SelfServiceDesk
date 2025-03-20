@@ -24,30 +24,4 @@ export class API {
         return response;
 
     }
-
-
-/*     getRecipes = async (): Promise<any> => {
-        const response = await fetch('/resto-data.json');
-        const database: any = await response.json();
-        console.log(database);
-        return database;
-
-    } */
-
-}
-/********BONNE METHODE **********
-
-async getHttpClient () {
-    const url = './resto-data.json';
-    const ops = {
-        headers: new HttpHeaders({
-            'authorization': 'xxx'
-        })
-    };
-
-
-    const request = this._http.get<Resto>(url, ops);
-    const response = await firstValueFrom(request);
-    return response;
-}
-/**********************************/
+};

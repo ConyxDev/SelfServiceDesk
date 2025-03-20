@@ -43,6 +43,7 @@
           <h3 class="font-medium text-lg">{{ product.title }}</h3>
           <p class="text-sm text-gray-600">{{ product.description }}</p>
           <p class="font-bold mt-2">{{ product.price | currency:'CHF': 'symbol': '1.2-2' }}</p>
+          <button class="bg-blue-500 text-white px-4 py-2 rounded-md" [routerLink]="['/order/' + product.uuid]">Détails</button>
         </div>
         }
         } @else {
@@ -61,12 +62,14 @@
             <p>{{ product.title }}</p>
             <p>{{ product.description }}</p>
             <p>{{ product.price | currency:'CHF': 'symbol': '1.2-2' }}</p>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-md" [routerLink]="['/order/' + product.uuid]">Détails</button>
           </div>
           }
         }
       }
       </div>
       }
+      
     </div>
   </div>
   <div class="order-summary">
@@ -93,5 +96,7 @@
   </div>
   <div>
     <p class="text-xl font-semibold mb-4 text-white">Bitcoin price is: {{ bitCoinPrice | currency:'CHF': 'symbol': '1.2-2' }}</p>
+    <p class="text-xl font-semibold mb-4 text-white">Tendance bullish :{{ buyerTendance }} % &#8593;</p>
+    <p class="text-xl font-semibold mb-4 text-white">Tendance bearish :{{ sellerTendance }} % &#8595;</p>
   </div>
 </div>

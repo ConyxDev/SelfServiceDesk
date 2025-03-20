@@ -8,55 +8,64 @@ import { ReactiveFormsModule, FormArray, FormGroup, FormControl, Validators, Abs
 import { FormsModule } from '@angular/forms';
 import { WelcomeComponent } from '../../components/welcome/welcome-component.component';
 import { BitCoinHttp } from '../../services/BitCoinApi';
+import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
   selector: 'app-order-page',
   templateUrl: './order-page.component.html',
   styleUrl: './order-page.component.css',
-  imports: [CommonModule,WelcomeComponent, HeaderComponent, FilterByCategoryPipe, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule,WelcomeComponent, HeaderComponent, FilterByCategoryPipe, ReactiveFormsModule, FormsModule, RouterLink],
 })
 export class OrderPageComponent implements OnInit {
-  public categories: Category[] = [];
+  public categories?: Category[];
   public restaurant?: Restaurant;
-  public recipes: Recipe[] = [];
+  public recipes?: Recipe[];
   public title?: string;
   public logo?: string;
   public product?: Recipe;
   public selectedCategory?: Category;
-  public cartItems: Recipe[] = [];
+  public cartItems?: Recipe[] = [];
   public totalPrice: number = 0;
   public totalQuantity: number = 0;
   public productPrice: number = 0;
   public minOrder: boolean = false;
   public bitCoinPrice?: number;
-
+  public buyerTendance?: number;
+  public sellerTendance?: number;
 
 constructor (
-  private readonly _APIservice: API,
+  private readonly _router: Router,
+  private readonly _route: ActivatedRoute,
   private readonly _Bitcoinservice: BitCoinHttp
 ) { }
 
 
-ngOnInit(): void {
-      this._APIservice.getHttpClient().then((data) => {
-      this.categories = data.data;
-      this.product = data.data[0].recipes[0];
-      this.restaurant = data;
-      this.title = this.restaurant?.title;
-      this.logo = this.restaurant?.photo;
+async ngOnInit() {
+      console.log('ngOnInit');
+      const resultFromResolver = this._route.snapshot.data['resto'];
+      const result: Restaurant = resultFromResolver;
+      this.categories = result.data;
+      this.product = result.data[0].recipes[0];
+      this.title = result.title;
+      this.logo = result.photo;
       this.selectedCategory = this.categories[0];
-      console.log(this.product);
-      
-    });
-      this._Bitcoinservice.getBitCoin().then((market_data) => {
-        console.log(market_data);
-        const bitCoinPrice = market_data.market_data.current_price.chf;
+  
+
+        const bitcoinresult: any = this._route.snapshot.data['bitcoin'];
+        const resultBitcoin: any = bitcoinresult.data;
+        console.log(resultBitcoin);
+        const bitCoinPrice = bitcoinresult.market_data.current_price.chf;
+        const buyerTendance = bitcoinresult.sentiment_votes_up_percentage;
+        const sellerTendance = bitcoinresult.sentiment_votes_down_percentage;
+        console.log(buyerTendance);
+        console.log(sellerTendance);
         console.log(bitCoinPrice);
         this.bitCoinPrice = bitCoinPrice;
-      })
-  }
-
+        this.buyerTendance = buyerTendance;
+        this.sellerTendance = sellerTendance;
+  };
 
 
   selectCategory(category: Category) {
@@ -102,7 +111,7 @@ addToOrder(product: Recipe) {
     console.log(this.order);
   }
   this.updateTotal();
-}
+  }
   public updateTotal() {
     this.totalPrice = this.order.value.reduce((acc: number, item: any) => acc + (item.price * item.quantity), 0);
     this.totalQuantity = this.order.value.reduce((acc: number, item: any) => acc + item.quantity, 0);
