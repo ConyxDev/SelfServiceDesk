@@ -19,16 +19,17 @@ export const routes: Routes = [
             },
             {
                 path:':uuid',
-                component: ProductDetailPageComponent,
+                loadComponent:() => import ('./container/product-detail-page/product-detail-page.component').then(file => file.ProductDetailPageComponent),
                 resolve: {
                     resto: restoResolver
                 }
+                
             }
         ],
     },
     {
         path: 'admin',
-        component: AdminComponent,
+        loadComponent: ()  => import('./container/admin/admin.component').then(file => file.AdminComponent),
     },
     {
         path: '',

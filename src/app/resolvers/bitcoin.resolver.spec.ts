@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { ResolveFn } from '@angular/router';
-
-import { bitcoinResolver } from '../bitcoin.resolver';
+import { bitcoinResolver } from './bitcoin.resolver';
 
 describe('bitcoinResolver', () => {
   const executeResolver: ResolveFn<boolean> = (...resolverParameters) => 

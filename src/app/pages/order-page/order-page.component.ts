@@ -8,7 +8,7 @@ import { ReactiveFormsModule, FormArray, FormGroup, FormControl, Validators, Abs
 import { FormsModule } from '@angular/forms';
 import { WelcomeComponent } from '../../components/welcome/welcome-component.component';
 import { BitCoinHttp } from '../../services/BitCoinApi';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
 
@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-order-page',
   templateUrl: './order-page.component.html',
   styleUrl: './order-page.component.css',
-  imports: [CommonModule,WelcomeComponent, HeaderComponent, FilterByCategoryPipe, ReactiveFormsModule, FormsModule, RouterLink],
+  imports: [CommonModule,WelcomeComponent, HeaderComponent, FilterByCategoryPipe, ReactiveFormsModule, FormsModule, RouterLink, RouterModule],
 })
 export class OrderPageComponent implements OnInit {
   public categories?: Category[];

@@ -7,6 +7,9 @@ export interface Restaurant {
     fareBadge: string;
 }
 
+export interface App {
+    title: string;
+}
 export interface Category {
     itemUuids:   string[];
     title:       string;

@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { ResolveFn } from '@angular/router';
-
 import { restoResolver } from './resto.resolver';
+import { Restaurant } from '../pages/order-page/interface';
 
 describe('restoResolver', () => {
-  const executeResolver: ResolveFn<boolean> = (...resolverParameters) => 
+  const executeResolver: ResolveFn<Restaurant> = (...resolverParameters) => 
       TestBed.runInInjectionContext(() => restoResolver(...resolverParameters));
 
   beforeEach(() => {
