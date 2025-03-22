@@ -49,7 +49,7 @@
           @if (selectedCategory) {
             @for (product of (categories | filterByCategory: selectedCategory).recipes; track product.uuid) {
               <div
-                (click)="addToOrder(product)"
+                (click)="_orderService.addToOrder(product)"
                 class="cursor-pointer product-card p-4 border rounded-lg flex flex-col items-center justify-between h-full shadow-sm hover:shadow-md transition-shadow"
               >
                 @if (product.imageUrl) {
@@ -71,7 +71,7 @@
             @for (category of categories; track category.uuid) {
               @for (product of category.recipes; track product.uuid) {
                 <div 
-                  (click)="addToOrder(product)"
+                  (click)="_orderService.addToOrder(product)"
                   class="cursor-pointer product-card p-4 border rounded-lg flex flex-col items-center justify-between h-full shadow-sm hover:shadow-md transition-shadow"
                 >
                   @if (product.imageUrl) {
@@ -99,12 +99,12 @@
         <div class="flex justify-between items-start mb-4">
           <div class="w-2/3">
             <h3 class="text-xl font-semibold mb-2">Votre panier</h3>
-            <p>Items in cart: {{ totalQuantity }}</p>
-            <p class="font-bold">Total: {{ totalPrice / 100 | currency:'CHF': 'symbol': '1.2-2' }}</p>
+            <p>Items in cart: {{ _orderService.totalQuantity }}</p>
+            <p class="font-bold">Total: {{ _orderService.totalPrice / 100 | currency:'CHF': 'symbol': '1.2-2' }}</p>
           </div>
           <div class="w-1/3">
             <ul class="max-h-40 overflow-y-auto">
-              @for (item of order.value; track item.uuid) {
+              @for (item of _orderService.order.value; track item.uuid) {
                 <li class="flex justify-between items-center py-1">
                   <span>{{ item.title }} (x{{ item.quantity }})</span>
                   <span>{{ item.price / 100 | currency:'CHF': 'symbol': '1.2-2' }}</span>
@@ -118,16 +118,16 @@
         <!-- Bouton de commande sur toute la largeur -->
         <div class="order-button-container">
           <button 
-            [disabled]="order.hasError('minOrder')"
+            [disabled]="_orderService.order.hasError('minOrder')"
             class="w-full text-xl font-semibold py-3 rounded-md text-white text-center"
-            [class.bg-gray-400]="order.hasError('minOrder')"
-            [class.bg-blue-500]="!order.hasError('minOrder')"
+            [class.bg-gray-400]="_orderService.order.hasError('minOrder')"
+            [class.bg-blue-500]="!_orderService.order.hasError('minOrder')"
           >
             Commander
           </button>
           <p 
             class="text-red-500 mt-2 text-center" 
-            [hidden]="!order.hasError('minOrder')"
+            [hidden]="!_orderService.order.hasError('minOrder')"
           >
             Commander un minimum de 10CHF pour valider votre commande
           </p>

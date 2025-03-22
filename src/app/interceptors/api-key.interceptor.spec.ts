@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpInterceptorFn } from '@angular/common/http';
 
-import { apiKeyInterceptor } from './api-key.interceptor';
+import { apiKeyInterceptor } from './api-key.interceptor'; 
 
 describe('apiKeyInterceptor', () => {
   const interceptor: HttpInterceptorFn = (req, next) => 

@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpInterceptorFn } from '@angular/common/http';
-
 import { httpErrorsInterceptor } from './http-errors.interceptor';
 
 describe('httpErrorsInterceptor', () => {

@@ -10,7 +10,7 @@ import { WelcomeComponent } from '../../components/welcome/welcome-component.com
 import { BitCoinHttp } from '../../services/BitCoinApi';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-
+import { OrderService } from '../../services/orderService';
 
 @Component({
   selector: 'app-order-page',
@@ -35,11 +35,12 @@ export class OrderPageComponent implements OnInit {
   public buyerTendance?: number;
   public sellerTendance?: number;
 
-constructor (
-  private readonly _router: Router,
-  private readonly _route: ActivatedRoute,
-  private readonly _Bitcoinservice: BitCoinHttp
-) { }
+  constructor(
+    private readonly _router: Router,
+    private readonly _route: ActivatedRoute,
+    private readonly _Bitcoinservice: BitCoinHttp,
+    public _orderService: OrderService
+  ) { }
 
 
 async ngOnInit() {
@@ -87,34 +88,4 @@ public order = new FormArray([] as any, Validators.compose([
   Validators.minLength(1),
 
 ]));
-
-addToOrder(product: Recipe) {
-  const productIndex = this.order.value.findIndex((r: any)=>{
-    return r.uuid === product.uuid;
-  });
-  if(productIndex >= 0) {
-    const existingItem = this.order.at(productIndex) as FormGroup;
-    const newQuantity = existingItem.value.quantity + 1;
-    existingItem.patchValue({
-      quantity: newQuantity,
-    });
-  } else {
-    const newGroup = new FormGroup({
-      title: new FormControl(product.title, Validators.required),
-      uuid: new FormControl(product.uuid),
-      price: new FormControl(product.price),
-      quantity: new FormControl(1, Validators.compose([
-        Validators.min(1),
-      ])),
-    })
-    this.order.push(newGroup);
-    console.log(this.order);
-  }
-  this.updateTotal();
-  }
-  public updateTotal() {
-    this.totalPrice = this.order.value.reduce((acc: number, item: any) => acc + (item.price * item.quantity), 0);
-    this.totalQuantity = this.order.value.reduce((acc: number, item: any) => acc + item.quantity, 0);
-    this.minOrder = this.totalPrice >= 10 ? false : true;
-  }
 }
