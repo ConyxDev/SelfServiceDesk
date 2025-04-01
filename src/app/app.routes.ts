@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
 import { OrderPageComponent } from './pages/order-page/order-page.component';
-import { AdminComponent } from './container/admin/admin.component';
+import { AdminComponent } from './pages/admin/admin.component';
 import { ProductDetailPageComponent } from './container/product-detail-page/product-detail-page.component';
 import { restoResolver } from './resolvers/resto.resolver';
 import { bitcoinResolver } from './resolvers/bitcoin.resolver';
+import { foodResolver } from './resolvers/food.resolver';
 
 export const routes: Routes = [
     {
@@ -14,7 +15,8 @@ export const routes: Routes = [
                 component: OrderPageComponent,
                 resolve: {
                     resto: restoResolver,
-                    bitcoin: bitcoinResolver
+                    bitcoin: bitcoinResolver,
+                    food: foodResolver,
                 }
             },
             {
@@ -29,7 +31,7 @@ export const routes: Routes = [
     },
     {
         path: 'admin',
-        loadComponent: ()  => import('./container/admin/admin.component').then(file => file.AdminComponent),
+        loadComponent: ()  => import('./pages/admin/admin.component').then(file => file.AdminComponent),
     },
     {
         path: '',

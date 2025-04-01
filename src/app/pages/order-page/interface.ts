@@ -71,9 +71,29 @@ export interface CartItems {
     productQuantity: number;
 }
 
+export interface OrderRecipe {
+    title: string;
+    uuid: string;
+    quantity: number;
+    price: number;
+    description: string;
+}
 
-export interface OrderProduct {
+export interface Order {
+    _id?: string;
+    date: number;
+    detail: OrderRecipe[];
+}
+
+export interface OrderItem {
     title: string;
     uuid: string;
     quantity: number;
 }
+
+
+export interface OrderDetails {
+    detail: (Order & {description: string;}) [];
+    date: Date;
+  };
+

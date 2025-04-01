@@ -1,0 +1,32 @@
+<p>admin works!</p>
+
+<div class="admin-page p-6">
+  <h1 class="text-2xl font-bold mb-4">Admin Panel</h1>
+  <div class="orders-section">
+    <h2 class="text-xl font-semibold mb-4">Orders</h2>
+
+    @if (orders$ | async; as orders) {
+      <ul class="orders-list">
+        @for (order of orders; track $index) {
+          <li class="order-item p-4 border rounded mb-2">
+            <p class="font-bold">Date: {{ order.date }}</p>
+            <div class="order-items">
+              @for (item of order.detail; track item.uuid) {
+                <div class="flex justify-between py-1">
+                  <span>{{ item.title }}</span>
+                  <span>{{ item.description }}</span>
+                  <span>{{ item.price }}</span>
+                  <span>{{ item.quantity }}</span>
+                </div>
+              }
+            </div>
+          </li>
+          <button class="bg-blue-500 text-white px-4 py-2 rounded-md mt-3 w-full" (click)="deleteOrder(order.id)">Supprimer</button>
+        }
+      </ul>
+
+    } @else {
+      <p>Chargement des commandes...</p>
+    }
+  </div>
+</div>

@@ -14,9 +14,9 @@
         <h2 class="text-xl font-semibold mb-4 hover:bg-gray-100 cursor-pointer rounded hover:text-blue-500">
           Catégories
         </h2>
-        @if (categories) {
+        @if (categories$ | async; as categories) {
           <ul class="categories-list">
-            @for (category of categories; track category.uuid) {
+            @for (category of categories.data; track category.uuid) {
               <li
                 class="py-3 px-4 hover:bg-gray-100 cursor-pointer rounded-lg hover:text-blue-500 mb-2"
                 (click)="selectedCategory = category"
@@ -28,22 +28,16 @@
         }
       </div>
       
-      <!-- Bitcoin info déplacé à gauche -->
-      <div class="bitcoin-info mt-8 p-4 bg-gray-800 rounded-lg">
-        <p class="text-lg font-semibold mb-2 text-white">Bitcoin price is: {{ bitCoinPrice | currency:'CHF': 'symbol': '1.2-2' }}</p>
-        <p class="text-base font-medium mb-2 text-white">Tendance bullish: {{ buyerTendance }} % &#8593;</p>
-        <p class="text-base font-medium text-white">Tendance bearish: {{ sellerTendance }} % &#8595;</p>
-      </div>
+
     </div>
     
-    <!-- Grande colonne de droite: produits -->
+
     <div class="right-column w-2/3">
-      <!-- Titre de la catégorie sélectionnée -->
+
       <h2 class="text-2xl font-semibold mb-6">
         {{ selectedCategory?.title || "Tous les produits" }}
       </h2>
       
-      <!-- Grille de produits -->
       @if (categories) {
         <div class="products-grid grid grid-cols-3 gap-6">
           @if (selectedCategory) {
@@ -118,6 +112,7 @@
         <!-- Bouton de commande sur toute la largeur -->
         <div class="order-button-container">
           <button 
+            (click)="saveOrder()"
             [disabled]="_orderService.order.hasError('minOrder')"
             class="w-full text-xl font-semibold py-3 rounded-md text-white text-center"
             [class.bg-gray-400]="_orderService.order.hasError('minOrder')"

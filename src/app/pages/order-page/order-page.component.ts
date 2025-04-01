@@ -2,15 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { API } from '../../services/API';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../components/header/header.component';
-import { Restaurant, Category, Recipe, OrderProduct } from './interface';
+import { Restaurant, Category, Recipe, OrderDetails } from './interface';
 import { FilterByCategoryPipe } from '../../pipes/filterByCategory/filter-by-category.pipe';
-import { ReactiveFormsModule, FormArray, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { ReactiveFormsModule, FormArray, Validators, AbstractControl } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { WelcomeComponent } from '../../components/welcome/welcome-component.component';
 import { BitCoinHttp } from '../../services/BitCoinApi';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { OrderService } from '../../services/orderService';
+import { FoodAPI } from '../../services/suppFoodFrApi';
+import { Observable } from 'rxjs';
+import { addDoc, collection } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
+import { FirestoreService } from '../../services/firestore.service';
 
 @Component({
   selector: 'app-order-page',
@@ -26,21 +31,27 @@ export class OrderPageComponent implements OnInit {
   public logo?: string;
   public product?: Recipe;
   public selectedCategory?: Category;
+  public readonly categories$: Observable<Restaurant | null>;
   public cartItems?: Recipe[] = [];
   public totalPrice: number = 0;
   public totalQuantity: number = 0;
   public productPrice: number = 0;
   public minOrder: boolean = false;
-  public bitCoinPrice?: number;
-  public buyerTendance?: number;
-  public sellerTendance?: number;
+  public foodSupp?: any; // a corriger
+  public orderDetails: OrderDetails[] = [];
 
   constructor(
     private readonly _router: Router,
     private readonly _route: ActivatedRoute,
-    private readonly _Bitcoinservice: BitCoinHttp,
-    public _orderService: OrderService
-  ) { }
+    private readonly _suppFoodFrApi: FoodAPI,
+    public _orderService: OrderService,
+    private readonly _api: API,
+    private readonly _firestore: Firestore,
+    private readonly _firestoreService: FirestoreService,
+
+  ) {
+    this.categories$ = this._api.data$;
+  }
 
 
 async ngOnInit() {
@@ -54,18 +65,11 @@ async ngOnInit() {
       this.selectedCategory = this.categories[0];
   
 
-        const bitcoinresult: any = this._route.snapshot.data['bitcoin'];
-        const resultBitcoin: any = bitcoinresult.data;
-        console.log(resultBitcoin);
-        const bitCoinPrice = bitcoinresult.market_data.current_price.chf;
-        const buyerTendance = bitcoinresult.sentiment_votes_up_percentage;
-        const sellerTendance = bitcoinresult.sentiment_votes_down_percentage;
-        console.log(buyerTendance);
-        console.log(sellerTendance);
-        console.log(bitCoinPrice);
-        this.bitCoinPrice = bitCoinPrice;
-        this.buyerTendance = buyerTendance;
-        this.sellerTendance = sellerTendance;
+        const foodSuppResult: any = this._route.snapshot.data['food'];
+        const resultFoodSupp: any = foodSuppResult;
+        console.log(resultFoodSupp);
+
+
   };
 
 
@@ -80,12 +84,19 @@ public minOrderValidator = (control: AbstractControl) => {
   return minOrder ? null : { minOrder: true };
 }
 
-
-
 public order = new FormArray([] as any, Validators.compose([
   this.minOrderValidator,
   Validators.required,
   Validators.minLength(1),
 
 ]));
+
+async saveOrder() {
+  const order = this._orderService.order.value;
+  await this._firestoreService.saveOrder(order);
+  alert('Order saved');
+  this.order.clear();
+  };
+
+
 }

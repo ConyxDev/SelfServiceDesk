@@ -1,12 +1,39 @@
-import { Component, Output, EventEmitter, SimpleChanges } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Auth } from '@angular/fire/auth';
+import { Firestore, collection, collectionData, query } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
+
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,ReactiveFormsModule],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title: string = 'SelfServiceDesk';
-}
+  title = 'SelfServiceDesk';
+  public data$: any;
+  public currentUser$: any;
+
+
+  constructor(
+    private readonly _auth: Auth,
+    private readonly _firestore: Firestore,
+    private readonly _router: Router
+  ) {}
+
+  loadData(): void {
+    const collectionRef = collection(this._firestore, 'demo');
+    const q = query(collectionRef);
+    const data$ = collectionData(q);
+    this.data$ = data$;
+  };
+
+
+
+  };
+  
