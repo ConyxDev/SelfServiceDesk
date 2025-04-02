@@ -80,9 +80,10 @@ export interface OrderRecipe {
 }
 
 export interface Order {
-    _id?: string;
     date: number;
     detail: OrderRecipe[];
+    done: boolean;
+    _id: string;
 }
 
 export interface OrderItem {
@@ -95,5 +96,7 @@ export interface OrderItem {
 export interface OrderDetails {
     detail: (Order & {description: string;}) [];
     date: Date;
+    done: boolean;
+    _id: string;
   };
 

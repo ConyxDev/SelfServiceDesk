@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, query, addDoc, collectionData, deleteDoc, doc } from '@angular/fire/firestore';
+import { OrderDetails } from '../pages/order-page/interface';
+import { Firestore, collection, query, addDoc, collectionData, deleteDoc, doc, updateDoc, QueryConstraint, where } from '@angular/fire/firestore';
 import { BehaviorSubject, combineLatest, map, Observable, pipe, tap} from 'rxjs';
 import { Order } from '../pages/order-page/interface';
 import { OrderRecipe } from '../pages/order-page/interface';
@@ -22,10 +23,6 @@ export class FirestoreService {
       this._getOrders$(),
       this._api.data$
     ]).pipe(
-      tap(([dataFromFirebase, dataFromHTTP]) => {
-        console.log('>>>', dataFromFirebase);
-        console.log('>>>', dataFromHTTP);
-      }),
       map(([dataFromFirebase, dataFromHTTP]) => {
         if (!dataFromHTTP?.data) {
           console.warn('Pas de données HTTP disponibles');
@@ -60,16 +57,21 @@ export class FirestoreService {
             ...order,
             detail,
           };
+          
         });
-        
+      }),
+      tap((orders) => {
+        console.log('>>>', orders);
+/*         alert('nouvelle commande enregistrée'); */
       })
-    )
-     }
+    );
+  }
 
      private _getOrders$() {
       const colRef = collection(this._firestore, 'orders');
       const q = query(colRef);
-      const data$ = collectionData(q, { idField: 'id'});
+      const data$ = collectionData(q, { idField: '_id'});
+      const onlyNotDone: QueryConstraint = where('done', '!=', true);
       return data$ as Observable<Order[]>;
     }
   
@@ -78,16 +80,20 @@ export class FirestoreService {
 
 async saveOrder(orderRecipes: OrderRecipe[]) {
   const colRef = collection(this._firestore, 'orders');
-  const order: Order = {
-    date: Date,
+  const order: Omit<Order, '_id'> = {
+    date: Date.now(),
     detail: orderRecipes,
+    done: false,
   };
   await addDoc(colRef, order);
 }
 
-  async deleteOrder(orderId: string) {
-    const docRef = doc(this._firestore, 'orders', orderId);
+  async updateOrderStatus(orderId: string, done: boolean) {
+    const docRef = doc(this._firestore, `orders/${orderId}`);
+    await updateDoc(docRef, { done : true });
     await deleteDoc(docRef);
+    console.log('commande supprimée');
+    
   }
 
 

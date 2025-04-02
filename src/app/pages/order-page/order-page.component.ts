@@ -21,7 +21,7 @@ import { FirestoreService } from '../../services/firestore.service';
   selector: 'app-order-page',
   templateUrl: './order-page.component.html',
   styleUrl: './order-page.component.css',
-  imports: [CommonModule,WelcomeComponent, HeaderComponent, FilterByCategoryPipe, ReactiveFormsModule, FormsModule, RouterLink, RouterModule],
+  imports: [CommonModule, HeaderComponent, FilterByCategoryPipe, ReactiveFormsModule, FormsModule, RouterLink, RouterModule],
 })
 export class OrderPageComponent implements OnInit {
   public categories?: Category[];
@@ -37,13 +37,14 @@ export class OrderPageComponent implements OnInit {
   public totalQuantity: number = 0;
   public productPrice: number = 0;
   public minOrder: boolean = false;
-  public foodSupp?: any; // a corriger
+/*   public foodSupp?: any; // a corriger */
   public orderDetails: OrderDetails[] = [];
+
 
   constructor(
     private readonly _router: Router,
     private readonly _route: ActivatedRoute,
-    private readonly _suppFoodFrApi: FoodAPI,
+/*     private readonly _suppFoodFrApi: FoodAPI, */
     public _orderService: OrderService,
     private readonly _api: API,
     private readonly _firestore: Firestore,
@@ -65,9 +66,9 @@ async ngOnInit() {
       this.selectedCategory = this.categories[0];
   
 
-        const foodSuppResult: any = this._route.snapshot.data['food'];
+/*         const foodSuppResult: any = this._route.snapshot.data['food'];
         const resultFoodSupp: any = foodSuppResult;
-        console.log(resultFoodSupp);
+        console.log(resultFoodSupp); */
 
 
   };
@@ -95,7 +96,9 @@ async saveOrder() {
   const order = this._orderService.order.value;
   await this._firestoreService.saveOrder(order);
   alert('Order saved');
-  this.order.clear();
+/*   this._orderService.order.next([] */
+  this.totalPrice = 0;
+  this.totalQuantity = 0;
   };
 
 

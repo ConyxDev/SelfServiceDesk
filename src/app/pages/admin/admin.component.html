@@ -7,6 +7,7 @@
 
     @if (orders$ | async; as orders) {
       <ul class="orders-list">
+        @if (orders.length > 0) {
         @for (order of orders; track $index) {
           <li class="order-item p-4 border rounded mb-2">
             <p class="font-bold">Date: {{ order.date }}</p>
@@ -21,12 +22,29 @@
               }
             </div>
           </li>
-          <button class="bg-blue-500 text-white px-4 py-2 rounded-md mt-3 w-full" (click)="deleteOrder(order.id)">Supprimer</button>
+          <button class="bg-blue-500 text-white px-4 py-2 rounded-md mt-3 w-full" 
+          (click)="deleteOrder(order._id, true)">
+          {{ order.done ? 'commande terminée' : 'terminer la commande'}}
+        </button>
+        <button class="bg-blue-500 text-white px-4 py-2 rounded-md mt-3 w-full" (click)="showDetails(order._id)">show details</button>
+        }
+        } @else {
+          <p>Aucune commande trouvée</p>
         }
       </ul>
 
     } @else {
-      <p>Chargement des commandes...</p>
+      let loaderTemplate
+      <ng-template #loaderTemplate>
+        <p>Chargement des commandes...</p>
+      </ng-template>
     }
   </div>
+  @if (orderSelected) {
+    <div class="order-details">
+      <h2>Details de la commande</h2>
+      <p>Date: {{ orderSelected.date }}</p>
+      <p>detail: {{ orderSelected | json }}</p>
+    </div>
+  }
 </div>
