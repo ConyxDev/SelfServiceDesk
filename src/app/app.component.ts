@@ -4,13 +4,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Auth } from '@angular/fire/auth';
 import { Firestore, collection, collectionData, query } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { RouterOutlet } from '@angular/router';
-
+import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterOutlet],
+  imports: [CommonModule, ReactiveFormsModule, IonApp, IonRouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

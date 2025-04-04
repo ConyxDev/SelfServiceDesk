@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+.color-primary {
+  color: #000;
+}
+ 
