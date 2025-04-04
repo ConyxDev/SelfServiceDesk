@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { API } from '../../services/API';
 import { CommonModule } from '@angular/common';
 import { Restaurant, Category, Recipe, OrderDetails } from './interface';
-import { HeaderComponent } from '../../components/header/header.component';
-import { FilterByCategoryPipe } from '../../pipes/filterByCategory/filter-by-category.pipe';
 import {
   ReactiveFormsModule,
   FormArray,
@@ -23,14 +21,11 @@ import { IonHeader, IonContent, IonCol, IonGrid, IonModal, IonRow, IonText, IonB
   templateUrl: './order-page.component.html',
   styleUrl: './order-page.component.css',
   imports: [
-    HeaderComponent,
     CommonModule,
-    FilterByCategoryPipe,
     ReactiveFormsModule,
     FormsModule,
     RouterLink,
     RouterModule,
-    IonHeader,
     IonContent,
     IonCol,
     IonGrid,
@@ -40,9 +35,7 @@ import { IonHeader, IonContent, IonCol, IonGrid, IonModal, IonRow, IonText, IonB
     IonButton,
     IonAvatar,
     IonLabel,
-    IonModal,
-    IonCard,
-    IonCardContent,
+
   ],
 })
 export class OrderPageComponent implements OnInit {
@@ -108,9 +101,8 @@ export class OrderPageComponent implements OnInit {
 
 // A FINIR +  CART
   public addToOrder(product: Recipe) {
-    this._orderService.order.value.push(product);
-    this.totalPrice += product.price;
-    this.totalQuantity += 1;
+    this._orderService.addToOrder(product);
+    this.cartItems?.push(product);
     console.log(this._orderService.order.value);
   }
 

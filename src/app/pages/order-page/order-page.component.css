@@ -21,4 +21,10 @@ ion-avatar {
     display: block;
 }
 
+.custom-cursor {
+    cursor: pointer;
+  }
+
+
 }
+

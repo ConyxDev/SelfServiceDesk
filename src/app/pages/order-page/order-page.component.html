@@ -24,7 +24,7 @@
                   @for (product of categorie.recipes; track product.uuid) {
                     <ion-col  (click)="addToOrder(product)"
                     size="4"
-                    class="ion-display-flex ion-flex-direction-column ion-align-items-center ion-justify-content-between ion-padding cursor-pointer" 
+                    class="ion-display-flex ion-flex-direction-column ion-align-items-center ion-justify-content-between ion-padding ion-activatable custom-cursor" 
                     style="height: 200px;"> <!-- Hauteur fixe ou min-height -->
                     
                     <!-- Image -->
@@ -76,11 +76,16 @@
 
 
       @for (item of _orderService.order.value; track item.uuid) {
+        <ion-list>
+        <ion-item>
         <span>{{ item.title }} (x{{ item.quantity }})</span>
         <span>{{
           item.price / 100 | currency : "CHF" : "symbol" : "1.2-2"
         }}</span>
+
         <button>X</button>
+        </ion-item>
+        </ion-list>
       }
     </ion-col>
     <ion-col size="12" class="ion-no-padding">
