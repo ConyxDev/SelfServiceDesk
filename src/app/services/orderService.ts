@@ -37,10 +37,37 @@ export class OrderService {
         this.updateTotal();
     }
 
+    public removeFromOrder(product: Recipe) {
+      const productIndex = this.order.value.findIndex((r: any) =>{
+        return r.uuid === product.uuid;
+      });
+      if(productIndex >= 0) {
+        const existingItem = this.order.at(productIndex) as FormGroup;
+        const newQuantity = existingItem.value.quantity - 1;
+        if(newQuantity > 0) {
+          existingItem.patchValue({
+            quantity: newQuantity,
+          });
+        } else {
+          this.order.removeAt(productIndex);
+        }
+        this.updateTotal();
+      }
+
+    }
+
+
     public updateTotal() {
         this.totalPrice = this.order.value.reduce((acc: number, item: any) => acc + (item.price * item.quantity), 0);
         this.totalQuantity = this.order.value.reduce((acc: number, item: any) => acc + item.quantity, 0);
         this.minOrder = this.totalPrice >= 10 ? false : true;
+    }
+
+    public resetOrder() {
+        this.order.clear();
+        this.totalPrice = 0;
+        this.totalQuantity = 0;
+        this.minOrder = false;
     }
 }
 

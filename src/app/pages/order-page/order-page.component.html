@@ -1,13 +1,13 @@
 <ion-content class="ion-no-padding">
   <ion-grid class="ion-no-padding">
     <ion-row>
-      <ion-col class="menu-col"size="auto">
+      <ion-col class="menu-col"size="auto ">
           @if (categories$ | async; as categories) {
             
             <ion-list class="menu-list ion-no-padding" lines="full">
               @for (category of categories.data; track category.uuid) {
-                <ion-item  (click)="selectedCategory = category" class="menu-item ion-text-center cursor-pointer">
-                  <ion-label>
+                <ion-item  class="menu-item ion-text-center cursor-pointer">
+                  <ion-label  (click)="selectCategory(category)">
                     <p>{{ category.title }}</p>
                   </ion-label>
                 </ion-item>
@@ -18,46 +18,48 @@
         
       <ion-col>
         @if (categories) { 
-                <ion-grid class="">
+                <ion-grid class="products-section">
                 @for (categorie of categories; track categorie.uuid) {
-                  <ion-row>
-                  @for (product of categorie.recipes; track product.uuid) {
-                    <ion-col  (click)="addToOrder(product)"
-                    size="4"
-                    class="ion-display-flex ion-flex-direction-column ion-align-items-center ion-justify-content-between ion-padding ion-activatable custom-cursor" 
-                    style="height: 200px;"> <!-- Hauteur fixe ou min-height -->
+                  <div [id]="'category-' + categorie.uuid">
+                    <ion-row>
+                    @for (product of categorie.recipes; track product.uuid) {
+                      <ion-col  (click)="addToOrder(product)"
+                      size="4"
+                      class="ion-display-flex ion-flex-direction-column ion-align-items-center ion-justify-content-between ion-padding ion-activatable custom-cursor" 
+                      style="height: 200px;"> <!-- Hauteur fixe ou min-height -->
+                      
+                      <!-- Image -->
+                      <ion-avatar class="ion-margin-bottom">
+                        <img [src]="product.imageUrl" alt="Product Image" class="product-image" />
+                      </ion-avatar>
                     
-                    <!-- Image -->
-                    <ion-avatar class="ion-margin-bottom">
-                      <img [src]="product.imageUrl" alt="Product Image" class="product-image" />
-                    </ion-avatar>
-                  
-                    <!-- Titre dans un conteneur de hauteur fixe -->
-                    <div class="ion-text-center" style="min-height: 3.5rem;"> <!-- Fixe la hauteur des titres -->
-                      <ion-label>
-                        <h3>{{ product.title }}</h3>
+                      <!-- Titre dans un conteneur de hauteur fixe -->
+                      <div class="ion-text-center" style="min-height: 3.5rem;"> <!-- Fixe la hauteur des titres -->
+                        <ion-label>
+                          <h3>{{ product.title }}</h3>
+                        </ion-label>
+                      </div>
+                    
+                      <!-- Prix -->
+                      <ion-label class="ion-text-center ion-margin-top">
+                        <p>{{ product.price / 100 | currency:'CHF':'symbol':'1.2-2' }}</p>
                       </ion-label>
-                    </div>
-                  
-                    <!-- Prix -->
-                    <ion-label class="ion-text-center ion-margin-top">
-                      <p>{{ product.price / 100 | currency:'CHF':'symbol':'1.2-2' }}</p>
-                    </ion-label>
-                  
-                    <!-- Bouton collé en bas -->
-                    <ion-button 
-                      size="small" 
-                      expand="block" 
-                      class="ion-margin-top"
-                      [routerLink]="['/order/' + product.uuid]">
-                      DÉTAILS
-                    </ion-button>
-                  
-                  </ion-col>
-                    }
-                  </ion-row>
-              }
-            </ion-grid>
+                    
+                      <!-- Bouton collé en bas -->
+                      <ion-button 
+                        size="small" 
+                        expand="block" 
+                        class="ion-margin-top"
+                        [routerLink]="['/order/' + product.uuid]">
+                        DÉTAILS
+                      </ion-button>
+                    
+                    </ion-col>
+                      }
+                    </ion-row>
+                  </div>
+                }
+              </ion-grid>
           }
       </ion-col>
     </ion-row>
@@ -83,7 +85,7 @@
           item.price / 100 | currency : "CHF" : "symbol" : "1.2-2"
         }}</span>
 
-        <button>X</button>
+        <button (click)="removeFromOrder(item)">X</button>
         </ion-item>
         </ion-list>
       }

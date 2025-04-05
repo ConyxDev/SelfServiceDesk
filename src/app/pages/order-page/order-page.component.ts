@@ -83,6 +83,9 @@ export class OrderPageComponent implements OnInit {
 
   selectCategory(category: Category) {
     this.selectedCategory = category;
+    setTimeout(() => {
+      document.getElementById('category-' + category.uuid)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
   }
 
   public minOrderValidator = (control: AbstractControl) => {
@@ -106,12 +109,17 @@ export class OrderPageComponent implements OnInit {
     console.log(this._orderService.order.value);
   }
 
+  public removeFromOrder(product: Recipe) {
+    this._orderService.removeFromOrder(product);
+    this.cartItems = this.cartItems?.filter(item => item.uuid !== product.uuid);
+    console.log(this._orderService.order.value);
+  }
+
   async saveOrder() {
     const order = this._orderService.order.value;
     await this._firestoreService.saveOrder(order);
     alert('Order saved');
-    /*   this._orderService.order.next([] */
-    this.totalPrice = 0;
-    this.totalQuantity = 0;
-  }
+    this._orderService.resetOrder();
+    }
 }
+

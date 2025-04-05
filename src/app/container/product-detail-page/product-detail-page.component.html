@@ -1,6 +1,12 @@
+<ion-content>
 <h1>{{ recipe?.title }}</h1>
 <p>{{ recipe?.description }}</p>
-<img [src]="recipe?.imageUrl">
+<img [src]="recipe?.imageUrl" class="product-image width-100">
 <p *ngIf="recipe?.price">{{ (recipe!.price / 100) | currency:'CHF': 'symbol': '1.2-2' }}</p>
-<button (click)="orderService.addToOrder(recipe!)" *ngIf="recipe">Ajouter au panier</button>
-<button routerLink="/order">Voir le panier</button>
+<ion-row class="ion-align-items-center ion-margin-right">
+    <ion-col>
+<ion-button (click)="orderService.addToOrder(recipe!)" *ngIf="recipe" class="ion-margin-top ion-margin-right">Ajouter au panier</ion-button>
+<ion-button routerLink="/order" class="ion-margin-top">Voir le panier</ion-button>
+</ion-col>
+</ion-row>
+</ion-content>

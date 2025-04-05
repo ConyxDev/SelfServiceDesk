@@ -4,11 +4,13 @@ import { API } from '../../services/API';
 import { Recipe, Restaurant } from '../../pages/order-page/interface';
 import { CommonModule } from '@angular/common';
 import { OrderService } from '../../services/orderService';
+import { IonContent, IonButton, IonRow, IonCol } from '@ionic/angular/standalone';
+
 
 @Component({
   selector: 'app-product-detail-page',
   standalone: true,
-  imports: [CommonModule,RouterModule,],
+  imports: [CommonModule,RouterModule,IonContent,IonButton,IonRow,IonCol],
   templateUrl: './product-detail-page.component.html',
   styleUrl: './product-detail-page.component.css'
 })
