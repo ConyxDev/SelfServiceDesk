@@ -50,7 +50,7 @@
                         size="small" 
                         expand="block" 
                         class="ion-margin-top"
-                        [routerLink]="['/order/' + product.uuid]">
+                        (click)="selectedProduct = product">
                         DÉTAILS
                       </ion-button>
                     
@@ -105,3 +105,12 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+
+
+<ion-modal [isOpen]="!!selectedProduct" (didDismiss)="selectedProduct = undefined" [presentingElement]="presentingElement">
+  <ng-template>
+    <ion-content>
+      <app-product-detail-page [uuid]="selectedProduct?.uuid"/>
+    </ion-content>
+  </ng-template>
+</ion-modal>

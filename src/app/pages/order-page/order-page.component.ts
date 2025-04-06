@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { API } from '../../services/API';
 import { CommonModule } from '@angular/common';
 import { Restaurant, Category, Recipe, OrderDetails } from './interface';
@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 import { Firestore } from '@angular/fire/firestore';
 import { FirestoreService } from '../../services/firestore.service';
 import { IonHeader, IonContent, IonCol, IonGrid, IonModal, IonRow, IonText, IonButton, IonItem, IonList, IonAvatar, IonLabel, IonCard, IonCardContent } from '@ionic/angular/standalone';
+import { ProductDetailPageComponent } from '../../container/product-detail-page/product-detail-page.component';
 @Component({
   selector: 'app-order-page',
   templateUrl: './order-page.component.html',
@@ -26,6 +27,7 @@ import { IonHeader, IonContent, IonCol, IonGrid, IonModal, IonRow, IonText, IonB
     FormsModule,
     RouterLink,
     RouterModule,
+    IonModal,
     IonContent,
     IonCol,
     IonGrid,
@@ -35,10 +37,12 @@ import { IonHeader, IonContent, IonCol, IonGrid, IonModal, IonRow, IonText, IonB
     IonButton,
     IonAvatar,
     IonLabel,
-
+    ProductDetailPageComponent,
   ],
 })
 export class OrderPageComponent implements OnInit {
+
+
   public categories?: Category[];
   public restaurant?: Restaurant;
   public recipes?: Recipe[];
@@ -53,7 +57,8 @@ export class OrderPageComponent implements OnInit {
   public productPrice: number = 0;
   public minOrder: boolean = false;
   public orderDetails: OrderDetails[] = [];
-
+  public selectedProduct: Recipe | undefined;
+  presentingElement!: HTMLElement | null;
   constructor(
     private readonly _router: Router,
     private readonly _route: ActivatedRoute,
@@ -66,6 +71,7 @@ export class OrderPageComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.presentingElement = document.querySelector('.ion-page');
     console.log('ngOnInit');
     const resultFromResolver = this._route.snapshot.data['resto'];
     console.log(resultFromResolver);
