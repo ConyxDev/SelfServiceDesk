@@ -13,7 +13,6 @@ export class HeaderComponent {
   @Input() public logo?: string;
 
   emitEvent() {
-    console.log('logo clicked');
   }
 
 }

@@ -7,8 +7,6 @@ import { inject } from '@angular/core';
 
 export const httpErrorsInterceptor: HttpInterceptorFn = (req, next) => {
   const errorService = inject(ErrorService);
-  console.log('httpErrorsInterceptor');
-  console.log(req);
 
   return next(req).pipe(
     catchError((error) => {

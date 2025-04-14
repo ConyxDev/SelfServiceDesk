@@ -92,7 +92,6 @@ async saveOrder(orderRecipes: OrderRecipe[]) {
     const docRef = doc(this._firestore, `orders/${orderId}`);
     await updateDoc(docRef, { done : true });
     await deleteDoc(docRef);
-    console.log('commande supprimée');
     
   }
 
