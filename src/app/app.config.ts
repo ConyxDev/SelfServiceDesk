@@ -15,7 +15,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideIonicAngular } from '@ionic/angular/standalone';
 import { provideServiceWorker } from '@angular/service-worker';
-import { environment } from '../environments/environment.prod';
+import { environment } from '../environments/environment';
 
 
 
