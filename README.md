@@ -32,22 +32,33 @@
 
 ---
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Testing](#testing)
+
+---
+
 ## Overview
 
-SelfServiceDesk est une application web innovante conçue pour rationaliser la gestion des demandes de service grâce à une interface conviviale.
+**SelfServiceDesk** is an innovative web application designed to streamline service request management through a user-friendly interface.
 
 ## Getting Started
 
 ### Prerequisites
 
-Ce projet nécessite les dépendances suivantes :
+Before you begin, make sure you have the following installed:
 
 - **Programming Language :** TypeScript
 - **Package Manager :** npm
 
 ### Installation
 
-Suivez ces étapes pour configurer SelfServiceDesk à partir de la source et installer les dépendances :
+Follow these steps to set up **SelfServiceDesk** from source and install the necessary dependencies:
 
 1. **Clone the repository:**
    ```bash
@@ -66,7 +77,7 @@ Suivez ces étapes pour configurer SelfServiceDesk à partir de la source et ins
 
 ## Usage
 
-Exécutez le projet avec :
+To start the application locally, run:
 
 ```bash
 npm start
@@ -74,10 +85,12 @@ npm start
 
 ## Testing
 
-SelfServiceDesk utilise le framework de test Cypress. Exécutez la suite de tests avec :
+**SelfServiceDesk** uses the **Cypress** testing framework.  
+To run the test suite, execute:
 
 ```bash
 npm run test
 ```
 
-[↑ Retour en haut](#selfservicedesk)
+[↑ Back to top](#selfservicedesk)
+
