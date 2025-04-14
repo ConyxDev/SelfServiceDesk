@@ -9,7 +9,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { OrderService } from '../../services/orderService';
 import { Observable } from 'rxjs';
@@ -25,7 +25,6 @@ import { ProductDetailPageComponent } from '../../container/product-detail-page/
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterLink,
     RouterModule,
     IonModal,
     IonContent,
@@ -65,7 +64,7 @@ export class OrderPageComponent implements OnInit {
     public _orderService: OrderService,
     private readonly _api: API,
     private readonly _firestore: Firestore,
-    private readonly _firestoreService: FirestoreService
+    private readonly _firestoreService: FirestoreService,
   ) {
     this.categories$ = this._api.data$;
   }
