@@ -27,10 +27,7 @@ jobs:
           echo "  app_release_date: '${{ steps.current_date.outputs.builddate }}'," >> src/environments/environment.ts
           echo "  app_release_version: '${{ steps.extract_version.outputs.version }}'," >> src/environments/environment.ts
           echo "};" >> src/environments/environment.ts
-      - name: Build and Deploy
-        run: |
-          npm ci
-          npm run build
+          npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
