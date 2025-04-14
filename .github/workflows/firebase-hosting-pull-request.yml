@@ -13,20 +13,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Ensure environments directory exists
-        run:  mkdir -p src/environments
+        run: mkdir -p src/environments
       - name: Set up environment variables
         run: |
           echo "export const environment = {" > src/environments/environment.ts
           echo "  production: true," >> src/environments/environment.ts
           echo "  firebase: {" >> src/environments/environment.ts
-          echo "  projectId: '${{ secrets.FIREBASE_PROJECT_ID }}'," >> src/environments/environment.ts
-          echo "  appId: '${{ secrets.FIREBASE_APP_ID }}'," >> src/environments/environment.ts
-          echo "  storageBucket: '${{ secrets.FIREBASE_STORAGE_BUCKET }}'," >> src/environments/environment.ts
-          echo "  apiKey: '${{ secrets.FIREBASE_API_KEY }}'," >> src/environments/environment.ts
-          echo "  authDomain: '${{ secrets.FIREBASE_AUTH_DOMAIN }}'," >> src/environments/environment.ts
-          echo "  messagingSenderId: '${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}'," >> src/environments/environment.ts
+          echo "    projectId: '${{ secrets.FIREBASE_PROJECT_ID }}'," >> src/environments/environment.ts
+          echo "    appId: '${{ secrets.FIREBASE_APP_ID }}'," >> src/environments/environment.ts
+          echo "    storageBucket: '${{ secrets.FIREBASE_STORAGE_BUCKET }}'," >> src/environments/environment.ts
+          echo "    apiKey: '${{ secrets.FIREBASE_API_KEY }}'," >> src/environments/environment.ts
+          echo "    authDomain: '${{ secrets.FIREBASE_AUTH_DOMAIN }}'," >> src/environments/environment.ts
+          echo "    messagingSenderId: '${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}'" >> src/environments/environment.ts
+          echo "  }," >> src/environments/environment.ts
           echo "  app_release_date: '${{ steps.current_date.outputs.builddate }}'," >> src/environments/environment.ts
-          echo "  app_release_version: '${{ steps.extract_version.outputs.version }}'," >> src/environments/environment.ts
+          echo "  app_release_version: '${{ steps.extract_version.outputs.version }}'" >> src/environments/environment.ts
           echo "};" >> src/environments/environment.ts
           npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
