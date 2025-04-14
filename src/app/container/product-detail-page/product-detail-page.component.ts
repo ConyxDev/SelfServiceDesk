@@ -4,14 +4,14 @@ import { API } from '../../services/API';
 import { Recipe, Restaurant } from '../../pages/order-page/interface';
 import { CommonModule } from '@angular/common';
 import { OrderService } from '../../services/orderService';
-import { IonContent, IonButton, IonRow, IonCol, IonToolbar, IonTitle, IonButtons, IonBackButton, IonHeader, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonButton, IonRow, IonCol, IonToolbar, IonButtons, IonIcon, IonHeader } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { close } from 'ionicons/icons';
 
 @Component({
   selector: 'app-product-detail-page',
   standalone: true,
-  imports: [CommonModule,RouterModule,IonContent,IonButton,IonRow,IonCol,IonToolbar,IonTitle,IonButtons,IonBackButton,IonIcon,IonHeader],
+  imports: [CommonModule,RouterModule,IonContent,IonButton,IonRow,IonCol,IonToolbar,IonButtons,IonIcon,IonHeader],
   templateUrl: './product-detail-page.component.html',
   styleUrl: './product-detail-page.component.css'
 })
@@ -48,8 +48,4 @@ export class ProductDetailPageComponent implements OnInit {
       console.log(recipe);
      
   }
-
-
-
-
 }
