@@ -12,7 +12,10 @@ jobs:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
-      
+        - name: "Set current date as env variable"
+        run: |
+          echo "builddate=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+        id: current_date
       - uses: actions/checkout@v4
       run:  | 
           echo "export const environment = {" > src/environments/environment.ts
@@ -27,7 +30,7 @@ jobs:
           echo "  app_release_version: '${{ steps.extract_version.outputs.version }}'," >> src/environments/environment.ts
           echo "};" >> src/environments/environment.ts
           npm ci && npm run build
-          
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
