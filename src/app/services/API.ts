@@ -16,7 +16,6 @@ export class API {
     constructor(
         private readonly _http: HttpClient
     ) {
-        console.log('Hi from the constructor');
     }
 
 

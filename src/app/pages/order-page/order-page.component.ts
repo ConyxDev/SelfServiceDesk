@@ -71,9 +71,7 @@ export class OrderPageComponent implements OnInit {
 
   async ngOnInit() {
     this.presentingElement = document.querySelector('.ion-page');
-    console.log('ngOnInit');
     const resultFromResolver = this._route.snapshot.data['resto'];
-    console.log(resultFromResolver);
     const result: Restaurant = resultFromResolver;
     this.categories = result.data;
     this.product = result.data[0].recipes[0];
@@ -83,7 +81,7 @@ export class OrderPageComponent implements OnInit {
 
     /*         const foodSuppResult: any = this._route.snapshot.data['food'];
         const resultFoodSupp: any = foodSuppResult;
-        console.log(resultFoodSupp); */
+
   }
 
   selectCategory(category: Category) {
@@ -111,13 +109,11 @@ export class OrderPageComponent implements OnInit {
   public addToOrder(product: Recipe) {
     this._orderService.addToOrder(product);
     this.cartItems?.push(product);
-    console.log(this._orderService.order.value);
   }
 
   public removeFromOrder(product: Recipe) {
     this._orderService.removeFromOrder(product);
     this.cartItems = this.cartItems?.filter(item => item.uuid !== product.uuid);
-    console.log(this._orderService.order.value);
   }
 
   async saveOrder() {

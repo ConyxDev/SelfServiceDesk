@@ -32,7 +32,6 @@ export class AdminComponent {
   async showDetails(orderId: string) {
     const orders = await firstValueFrom(this._firestoreService.order$);
     const order = orders.find(o => o._id === orderId);
-    console.log(order);
     this.orderSelected = order;
   }
 }

@@ -32,7 +32,6 @@ export class OrderService {
             ])),
           })
           this.order.push(newFormGroup);
-          console.log(this.order);
         }
         this.updateTotal();
     }

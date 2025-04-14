@@ -12,7 +12,6 @@ export class BitCoinHttp {
     constructor(
         private readonly _http: HttpClient
     ) {
-        console.log('hi from the BitCoin constructor')
     }
 
     async getBitCoin () {

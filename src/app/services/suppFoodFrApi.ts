@@ -12,7 +12,6 @@ export class FoodAPI {
     constructor(
         private readonly _http: HttpClient
     ){
-        console.log('hello from food api')
     }
 
     async getFoodApi () {

@@ -24,11 +24,9 @@ export class WelcomeComponent {
       ])
     });
 
-    console.log(this.welcomeForm.get('titleWelcome')?.valid);
   }
 
   emitEvent() {
-    console.log('Welcome clicked');
     this.welcomeClick.emit();
   }
 

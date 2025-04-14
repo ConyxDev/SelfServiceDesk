@@ -45,7 +45,6 @@ export class ProductDetailPageComponent implements OnInit {
         this._router.navigate(['/order']);
         alert('Recipe not found')
       }
-      console.log(recipe);
      
   }
 }
