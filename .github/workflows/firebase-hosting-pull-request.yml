@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Ensure environments directory exists
+        run: mkdir -p src/environments
       - name: Set up environment variables
         run: |
           echo "export const environment = {" > src/environments/environment.ts
