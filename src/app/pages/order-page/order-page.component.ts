@@ -81,7 +81,7 @@ export class OrderPageComponent implements OnInit {
 
     /*         const foodSuppResult: any = this._route.snapshot.data['food'];
         const resultFoodSupp: any = foodSuppResult;
-
+*/
   }
 
   selectCategory(category: Category) {
