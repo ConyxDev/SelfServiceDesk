@@ -41,6 +41,10 @@ jobs:
 
       - name: Ensure dist directory exists
         run: mkdir -p dist/self-service-desk/browser/browser
-        
+
+      - name: Create .nojekyll file
+        run: echo > dist/self-service-desk/.nojekyll
+
+
       - name: Deploy to GitHub Pages
         run: ng deploy --base-href=/SelfServiceDesk/
