@@ -30,7 +30,7 @@ jobs:
           echo "    app_release_date: '${{ github.event.head_commit.timestamp }}'," >> src/environments/environment.ts
           echo "    app_release_version: '${{ github.sha }}'," >> src/environments/environment.ts
           echo "  }" >> src/environments/environment.ts
-          echo "};"
+          echo "};" >> src/environments/environment.ts
           
       - name: Install dependencies
         run: npm ci
