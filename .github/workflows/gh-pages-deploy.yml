@@ -27,7 +27,7 @@ jobs:
           echo "    apiKey: '${{ secrets.FIREBASE_API_KEY }}'," >> src/environments/environment.ts
           echo "    authDomain: '${{ secrets.FIREBASE_AUTH_DOMAIN }}'," >> src/environments/environment.ts
           echo "    messagingSenderId: '${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}'," >> src/environments/environment.ts
-          echo "    appId: '${{ secrets.FIREBASE_APP_ID }}'," >> src/environments/environment.ts
+          echo "    appId: '${{ secrets.FIREBASE_APP_ID }}'," >> src/environments/environment.ts  # Add this line
           echo "    app_release_date: '${{ github.event.head_commit.timestamp }}'," >> src/environments/environment.ts
           echo "    app_release_version: '${{ github.sha }}'," >> src/environments/environment.ts
           echo "  }" >> src/environments/environment.ts
