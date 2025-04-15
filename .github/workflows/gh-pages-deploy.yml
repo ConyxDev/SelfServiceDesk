@@ -39,4 +39,4 @@ jobs:
         run: npm install -g @angular/cli
         
       - name: Deploy to GitHub Pages
-        run: ng deploy --project=SelfServiceDesk --configuration=production
+        run: ng deploy --base-href=/SelfServiceDesk/
