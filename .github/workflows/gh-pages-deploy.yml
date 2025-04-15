@@ -42,8 +42,5 @@ jobs:
       - name: Build application
         run: ng build --configuration production
 
-      - name: Create .nojekyll file
-        run: touch dist/self-service-desk/browser/.nojekyll
-
       - name: Deploy to GitHub Pages
         run: ng deploy --project=selfservicedesk
