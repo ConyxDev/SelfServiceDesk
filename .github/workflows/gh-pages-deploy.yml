@@ -13,7 +13,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-        run: mkdir -p src/environments  
+          
+      - name: Create environment directory
+        run: mkdir -p src/environments
+        
       - name: Create environment file
         run: |
           echo "export const environment = {" > src/environments/environment.ts
@@ -33,4 +36,4 @@ jobs:
         run: npm ci
         
       - name: Deploy to GitHub Pages
-        run: ng deploy --base-href=/SelfServiceDesk/ --project=SelfServiceDesk --configuration=production
+        run: ng deploy --project=SelfServiceDesk --configuration=production
