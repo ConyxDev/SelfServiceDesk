@@ -41,6 +41,8 @@
     "@compodoc/compodoc": "^1.1.26",
     "@cypress/schematic": "^3.0.0",
     "@ionic/angular-toolkit": "latest",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.1",
     "@types/jasmine": "~5.1.0",
     "angular-cli-ghpages": "^2.0.3",
     "cypress": "latest",
@@ -50,6 +52,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "semantic-release": "^24.2.3",
     "typescript": "~5.7.2"
   }
 }
