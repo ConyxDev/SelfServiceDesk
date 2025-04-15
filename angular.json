@@ -66,6 +66,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/SelfServiceDesk/",
               "budgets": [
                 {
                   "type": "initial",
@@ -181,7 +182,10 @@
           }
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy"
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "/SelfServiceDesk/"
+          }
         }
       }
     }
