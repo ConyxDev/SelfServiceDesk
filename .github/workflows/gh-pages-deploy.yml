@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+       
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -30,10 +30,13 @@ jobs:
           echo "    app_release_date: '${{ github.event.head_commit.timestamp }}'," >> src/environments/environment.ts
           echo "    app_release_version: '${{ github.sha }}'," >> src/environments/environment.ts
           echo "  }" >> src/environments/environment.ts
-          echo "};" >> src/environments/environment.ts
+          echo "};"
           
       - name: Install dependencies
         run: npm ci
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
         
       - name: Deploy to GitHub Pages
         run: ng deploy --project=SelfServiceDesk --configuration=production
